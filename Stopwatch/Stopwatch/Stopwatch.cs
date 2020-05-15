@@ -1,29 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Stopwatch
 {
     class Stopwatch
     {
-        private DateTime StartTime;
+        private DateTime _startTime;
 
-        private DateTime StopTime;
+        private DateTime _stopTime;
 
-        private int _timerStartCode = 1;
+        private TimeSpan _elapsedTime;
+
+        private bool _running = false;
+
+        private bool _validRun = true;
 
         public void Start()
         {
             try
             {
-                if (_timerStartCode == -1)
+                if (_running)
                 {   
-
                     throw new InvalidOperationException();
                 }
-                _timerStartCode = -1;
-                StartTime = DateTime.Now;
-
+                _running = true;
+                _startTime = DateTime.Now;
             }
             catch (InvalidOperationException)
             {
@@ -33,14 +33,40 @@ namespace Stopwatch
 
         public void Stop()
         {
-            this.StopTime = DateTime.Now;
+            try
+            {
+                if (!_running)
+                {
+                    throw new InvalidOperationException();
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                _validRun = false;
+                Console.WriteLine("Cannot stop a timer that is not running");
+            }
+
+            _running = false;
+            this._stopTime = DateTime.Now;
         }
 
-        public TimeSpan ElapsedTime()
+        public void ElapsedTime()
         {
-            return StopTime - StartTime;
-
+            try
+            {
+                if (!_validRun)
+                    throw new InvalidOperationException();
+                else
+                {
+                    _validRun = true;
+                    _elapsedTime = _stopTime - _startTime;
+                    Console.WriteLine($"Elapsed time is: {_elapsedTime}");
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("The last timer run was not valid, so there's no elapsed time");
+            }
         }
-
     }
 }
