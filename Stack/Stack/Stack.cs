@@ -30,11 +30,28 @@ namespace Stack
 
         public object Pop()
         {
-            object tmp = stackList[_head - 1];
-            stackList.RemoveAt(_head - 1);
-            _head--;
+            try
+            {
+                if(_head == 0)
+                {
+                    throw new InvalidOperationException();
+                }
 
-            return tmp;
+                else
+                {
+                    object tmp = stackList[_head - 1];
+                    stackList.RemoveAt(_head - 1);
+                    _head--;
+
+                    return tmp;
+
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                Console.WriteLine("Cannot Pop() a empty Stack, method returns null");
+                return null;
+            }
         }
 
         public void Clear()

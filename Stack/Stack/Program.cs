@@ -8,13 +8,15 @@ namespace Stack
         static void Main(string[] args)
         {
             var stack = new Stack();
-            stack.Push(1);
-            stack.Push(2);
-            stack.Push(3);
+            //for (int i = 16; i < 654; i++)
+            //{
+            //    stack.Push(i);
+            //}
 
-            Console.WriteLine(stack.Pop());
-            Console.WriteLine(stack.Pop());
-            Console.WriteLine(stack.Pop());
+            for (int i = 16; i < 654; i++)
+            {
+                Console.WriteLine(stack.Pop());
+            }
         }
     }
 }
