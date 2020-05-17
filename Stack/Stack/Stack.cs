@@ -6,7 +6,7 @@ namespace Stack
     public class Stack
     {
         private readonly List<object> stackList = new List<object>();
-        private int head;
+        private int _head;
 
         public void Push(object obj)
         {
@@ -19,7 +19,7 @@ namespace Stack
                 else
                 {
                     stackList.Add(obj);
-                    head++;
+                    _head++;
                 }
             }
             catch (InvalidOperationException)
@@ -30,9 +30,9 @@ namespace Stack
 
         public object Pop()
         {
-            object tmp = stackList[head - 1];
-            stackList.RemoveAt(head - 1);
-            head--;
+            object tmp = stackList[_head - 1];
+            stackList.RemoveAt(_head - 1);
+            _head--;
 
             return tmp;
         }
@@ -43,7 +43,7 @@ namespace Stack
             {
                 stackList.RemoveAt(i);
             }
-            head = 0;
+            _head = 0;
         }
     }
 }
